@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MathMnemo · Tables & Racines</title>
+<title>MathMnemo · Tables & Roots</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
@@ -73,17 +73,17 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 <body>
 <div id="app">
   <h1>MathMnemo</h1>
-  <p class="sub">Tables 1-25 · Puissances · Racines 2e à 25e · Quiz et astuces pour enfants</p>
+  <p class="sub">Tables 1-25 · Powers · Roots 2nd to 25th · Quiz & mental math tricks</p>
   <div class="liens">
     <a href="multiplication.html">× Multiplication</a>
-    <a href="puissances.html">n¹ n² n³ Puissances</a>
-    <a href="racines.html">√ Racines</a>
+    <a href="powers.html">n¹ n² n³ Powers</a>
+    <a href="roots.html">√ Roots</a>
   </div>
   <div class="btns" id="tabs">
     <button class="btn on" data-tab="0">× Multiplication</button>
-    <button class="btn" data-tab="1">n¹ n² n³ Puissances</button>
-    <button class="btn" data-tab="2">√ Racines</button>
-    <button class="btn" data-tab="3"> Mnémotechnique</button>
+    <button class="btn" data-tab="1">n¹ n² n³ Powers</button>
+    <button class="btn" data-tab="2">√ Roots</button>
+    <button class="btn" data-tab="3"> Mnemonic</button>
   </div>
   <div id="panels">
     <div class="hd" id="p0"></div>
@@ -124,15 +124,15 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
       h += '</div>';
     }
     document.getElementById('mres').innerHTML = h;
-    document.getElementById('mst').textContent = Math.max(0,t-f+1)*r+' résultats';
+    document.getElementById('mst').textContent = Math.max(0,t-f+1)*r+' results';
   }
 
   var mhtml = '<div class="cp">'+
-    '<div><label>Nombre</label><input type="number" id="mn" value="7" min="1"></div>'+
-    '<div><label>De</label><input type="number" id="mf" value="1" min="1"></div>'+
-    '<div><label>À</label><input type="number" id="mt" value="15" min="1"></div>'+
+    '<div><label>Number</label><input type="number" id="mn" value="7" min="1"></div>'+
+    '<div><label>From</label><input type="number" id="mf" value="1" min="1"></div>'+
+    '<div><label>To</label><input type="number" id="mt" value="15" min="1"></div>'+
     '<div style="display:flex;align-items:center;gap:6px"><div><label>Tables 1 →</label><div style="display:flex;align-items:center;gap:6px"><input type="range" id="mr" min="1" max="25" value="6"><span class="rv" id="mrv">6</span></div></div></div>'+
-    '<button id="m25">Tables 1 à 25</button><button id="m10">Tables 1 à 10</button>'+
+    '<button id="m25">Tables 1 to 25</button><button id="m10">Tables 1 to 10</button>'+
     '<span class="st" id="mst"></span></div><div class="gr" id="mres"></div>';
   panels[0].innerHTML = mhtml;
 
@@ -144,35 +144,35 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
   document.getElementById('m10').addEventListener('click', function(){document.getElementById('mr').value=10;renderMult()});
   renderMult();
 
-  // === PUISSANCES ===
+  // === POWERS ===
   function renderPow(){
     var n = parseInt(document.getElementById('pn').value)||1;
     var e = parseInt(document.getElementById('pe').value)||1;
     var s2 = document.getElementById('ps2').checked;
     var st = document.getElementById('pst').checked;
     var h = '<div class="c2">';
-    h += '<div class="sc"><h3>'+n+' (k='+S(1)+' à '+S(e)+')</h3>';
+    h += '<div class="sc"><h3>'+n+' (k='+S(1)+' to '+S(e)+')</h3>';
     for(var k=1;k<=e;k++){
       var v = Math.pow(n,k);
       var lb = n+S(k);
       if(v>9e14) h += '<div class="rw"><span class="op">'+lb+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';
-      else h += '<div class="rw"><span class="op">'+lb+'</span><span class="res">'+v.toLocaleString('fr-FR')+'</span></div>';
+      else h += '<div class="rw"><span class="op">'+lb+'</span><span class="res">'+v.toLocaleString('en-US')+'</span></div>';
     }
     h += '</div>';
     if(s2){
-      h += '<div class="sc"><h3>2ⁿ (n=1 à 25)</h3>';
-      for(var k2=1;k2<=25;k2++) h += '<div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('fr-FR')+'</span></div>';
+      h += '<div class="sc"><h3>2ⁿ (n=1 to 25)</h3>';
+      for(var k2=1;k2<=25;k2++) h += '<div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('en-US')+'</span></div>';
       h += '</div>';
     }
     h += '</div>';
     if(st){
       h += '<div class="gr" style="margin-top:16px">';
       for(var b=1;b<=25;b++){
-        h += '<div class="cd"><h3>'+b+' (k='+S(1)+' à '+S(10)+')</h3>';
+        h += '<div class="cd"><h3>'+b+' (k='+S(1)+' to '+S(10)+')</h3>';
         for(var k3=1;k3<=10;k3++){
           var v2 = Math.pow(b,k3);
           if(v2>9e14) h += '<div class="rw"><span class="op">k='+k3+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';
-          else h += '<div class="rw"><span class="op">k='+k3+'</span><span class="res">'+v2.toLocaleString('fr-FR')+'</span></div>';
+          else h += '<div class="rw"><span class="op">k='+k3+'</span><span class="res">'+v2.toLocaleString('en-US')+'</span></div>';
         }
         h += '</div>';
       }
@@ -182,10 +182,10 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
   }
 
   var phtml = '<div class="cp">'+
-    '<div><label>Nombre</label><input type="number" id="pn" value="3" min="1" max="100"></div>'+
-    '<div><label>Exposant max</label><input type="number" id="pe" value="10" min="1" max="25"></div>'+
+    '<div><label>Number</label><input type="number" id="pn" value="3" min="1" max="100"></div>'+
+    '<div><label>Max exponent</label><input type="number" id="pe" value="10" min="1" max="25"></div>'+
     '<div class="ck"><input type="checkbox" id="ps2" checked><label>2ⁿ</label></div>'+
-    '<div class="ck"><input type="checkbox" id="pst" checked><label>Tableau n¹ à n¹⁰ (1-25)</label></div>'+
+    '<div class="ck"><input type="checkbox" id="pst" checked><label>Table n¹ to n¹⁰ (1-25)</label></div>'+
     '</div><div id="pres"></div>';
   panels[1].innerHTML = phtml;
 
@@ -195,7 +195,7 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
   document.getElementById('pst').addEventListener('change', renderPow);
   renderPow();
 
-  // === RACINES ===
+  // === ROOTS ===
   function renderRoot(){
     var n = parseFloat(document.getElementById('rn').value)||1;
     var ri = parseInt(document.getElementById('rr').value)||2;
@@ -205,47 +205,47 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 
     var rv = Math.pow(n, 1/ri);
     var perf = Number.isInteger(rv) && Math.pow(Math.round(rv), ri) === n;
-    var rnames = ['','','carrée','cubique','4e','5e','6e','7e','8e','9e','10e','11e','12e','13e','14e','15e','16e','17e','18e','19e','20e','21e','22e','23e','24e','25e'];
+    var rnames = ['','','square','cube','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th','17th','18th','19th','20th','21st','22nd','23rd','24th','25th'];
 
     var h = '<div class="c2">';
-    h += '<div class="sc"><h3>'+S(ri)+'√'+n.toLocaleString('fr-FR')+'</h3>';
-    h += '<div class="rw"><span class="op">Racine '+rnames[ri]+'</span><span class="res">'+rv.toFixed(10).replace(/\.?0+$/,'')+'</span></div>';
-    h += '<div class="rw"><span class="op">Vérif : '+rv.toFixed(6)+S(ri)+'</span><span class="res">'+Math.pow(rv,ri).toFixed(4)+'</span></div>';
-    if(perf) h += '<div class="rw hl"><span class="op"> Parfait !</span><span class="res">= '+Math.round(rv)+'</span></div>';
+    h += '<div class="sc"><h3>'+S(ri)+'√'+n.toLocaleString('en-US')+'</h3>';
+    h += '<div class="rw"><span class="op">'+rnames[ri]+' root</span><span class="res">'+rv.toFixed(10).replace(/\.?0+$/,'')+'</span></div>';
+    h += '<div class="rw"><span class="op">Check : '+rv.toFixed(6)+S(ri)+'</span><span class="res">'+Math.pow(rv,ri).toFixed(4)+'</span></div>';
+    if(perf) h += '<div class="rw hl"><span class="op"> Perfect !</span><span class="res">= '+Math.round(rv)+'</span></div>';
     h += '</div>';
-    h += '<div class="sc"><h3>Autres racines de '+n.toLocaleString('fr-FR')+'</h3>';
+    h += '<div class="sc"><h3>Other roots of '+n.toLocaleString('en-US')+'</h3>';
     [2,3,4,5,6,7,8,9,10].forEach(function(r){
       if(r===ri) return;
       h += '<div class="rw"><span class="op">'+S(r)+'√n</span><span class="res">'+Math.pow(n,1/r).toFixed(6)+'</span></div>';
     });
     h += '</div></div>';
 
-    h += '<div class="sh">Toutes les racines (2e à 25e)</div>';
+    h += '<div class="sh">All roots (2nd to 25th)</div>';
     h += '<div class="sc" style="margin-bottom:16px"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px">';
     for(var r2=2;r2<=25;r2++) h += '<div class="rw"><span class="op">'+S(r2)+'√n</span><span class="res">'+Math.pow(n,1/r2).toFixed(8).replace(/\.?0+$/,'')+'</span></div>';
     h += '</div></div>';
 
-    h += '<div class="sh">Liste des racines '+rnames[lr]+'</div><div class="gr">';
+    h += '<div class="sh">List of '+rnames[lr]+' roots</div><div class="gr">';
     for(var i=1;i<=ra;i++){
       var v = Math.pow(i, 1/lr);
       var ip = Math.pow(Math.round(v), lr) === i;
       h += '<div class="cd"><h3>'+S(lr)+'√'+i+'</h3>';
-      h += '<div class="rw"><span class="op">Valeur</span><span class="res">'+v.toFixed(8).replace(/\.?0+$/,'')+'</span></div>';
-      if(ip) h += '<div class="rw hl"><span class="op"> Parfait</span><span class="res">'+Math.round(v)+S(lr)+'='+Math.pow(Math.round(v),lr)+'</span></div>';
+      h += '<div class="rw"><span class="op">Value</span><span class="res">'+v.toFixed(8).replace(/\.?0+$/,'')+'</span></div>';
+      if(ip) h += '<div class="rw hl"><span class="op"> Perfect</span><span class="res">'+Math.round(v)+S(lr)+'='+Math.pow(Math.round(v),lr)+'</span></div>';
       h += '</div>';
     }
     h += '</div>';
     document.getElementById('rres').innerHTML = h;
-    document.getElementById('rst').textContent = perf?'✓ Racine parfaite !':'Racine approx.';
+    document.getElementById('rst').textContent = perf?'✓ Perfect root !':'Approx. root';
   }
 
   var rhtml = '<div class="cp">'+
-    '<div><label>Nombre</label><input type="number" id="rn" value="256" min="1" max="999999"></div>'+
-    '<div><label>Racine</label><select id="rr">';
-  for(var ri2=2;ri2<=25;ri2++) rhtml += '<option value="'+ri2+'">'+ri2+'e</option>';
+    '<div><label>Number</label><input type="number" id="rn" value="256" min="1" max="999999"></div>'+
+    '<div><label>Root</label><select id="rr">';
+  for(var ri2=2;ri2<=25;ri2++) rhtml += '<option value="'+ri2+'">'+ri2+'th</option>';
   rhtml += '</select></div>'+
-    '<div style="display:flex;align-items:center;gap:6px"><div><label>Liste 1 →</label><div style="display:flex;align-items:center;gap:6px"><input type="range" id="rra" min="1" max="50" value="10"><span class="rv" id="rrav">10</span></div></div></div>'+
-    '<div><label>Exposant liste</label><input type="number" id="rlr" value="2" min="2" max="25"></div>'+
+    '<div style="display:flex;align-items:center;gap:6px"><div><label>List 1 →</label><div style="display:flex;align-items:center;gap:6px"><input type="range" id="rra" min="1" max="50" value="10"><span class="rv" id="rrav">10</span></div></div></div>'+
+    '<div><label>List exponent</label><input type="number" id="rlr" value="2" min="2" max="25"></div>'+
     '<span class="st" id="rst"></span></div><div id="rres"></div>';
   panels[2].innerHTML = rhtml;
 
@@ -255,7 +255,7 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
   document.getElementById('rlr').addEventListener('input', renderRoot);
   renderRoot();
 
-  // === MNEMO ===
+  // === MNEMONIC ===
   var qCorrect = 0, qTotal = 0, qAnswer = 0, qHint = '';
 
   function newQ(){
@@ -269,21 +269,21 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
     if(type==='mult'){
       ans = a*b;
       text = a+' × '+b;
-      if(a===9||b===9) hint = "Astuce du 9 : résultat commence par n-1, somme des chiffres = 9";
-      else if(a===5||b===5){var nv=a===5?b:a; hint = nv%2===0 ? "Astuce du 5 pair : moitié + 0" : "Astuce du 5 impair : (n-1)/2 + 5";}
+      if(a===9||b===9) hint = "9 trick : result starts with n-1, digit sum = 9";
+      else if(a===5||b===5){var nv=a===5?b:a; hint = nv%2===0 ? "Even × 5 : half then add 0" : "Odd × 5 : subtract 1, half, add 5";}
     } else if(type==='pow'){
       var exp = Math.floor(Math.random()*Math.min(mx,8))+1;
       ans = Math.min(Math.pow(a,exp),99999999);
       text = a+S(exp);
-      hint = a+' × '+a+' = '+(a*a)+(exp>2?', puis multiplie encore':'')+' !';
-      if(a===2) hint = "Puissance de 2 : 2,4,8,16,32,64,128,256,512,1024...";
+      hint = a+' × '+a+' = '+(a*a)+(exp>2?', then multiply again':'')+' !';
+      if(a===2) hint = "Powers of 2 : 2,4,8,16,32,64,128,256,512,1024...";
     } else {
       var rexp = Math.floor(Math.random()*5)+2;
       var val = Math.pow(a,rexp);
       if(val>9999999){newQ();return;}
       ans = a;
       text = S(rexp)+'√'+val;
-      hint = 'Quel nombre × lui-même '+rexp+' fois = '+val+' ?';
+      hint = 'Which number multiplied by itself '+rexp+' times = '+val+' ?';
     }
     qAnswer = ans;
     qHint = hint;
@@ -302,10 +302,10 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
     var fb = document.getElementById('qfb');
     if(ua === qAnswer){
       qCorrect++;
-      fb.textContent = ' Bravo ! C\'est correct ! ';
+      fb.textContent = ' Well done ! Correct ! ';
       fb.className = 'fb ok';
     } else {
-      fb.textContent = ' Oups ! La réponse était : '+qAnswer;
+      fb.textContent = ' Oops ! The answer was : '+qAnswer;
       fb.className = 'fb no';
     }
     document.getElementById('qst').textContent = qCorrect+' / '+qTotal;
@@ -315,21 +315,21 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
   }
 
   var qhtml = '<div class="cp">'+
-    '<div><label>Matière</label><select id="qt"><option value="mult">Multiplication</option><option value="pow">Puissances</option><option value="root">Racines</option></select></div>'+
-    '<div><label>De</label><input type="number" id="qmin" value="1" min="1"></div>'+
-    '<div><label>À</label><input type="number" id="qmax" value="12" min="1"></div>'+
-    '<button id="qn">Nouvelle question</button>'+
+    '<div><label>Subject</label><select id="qt"><option value="mult">Multiplication</option><option value="pow">Powers</option><option value="root">Roots</option></select></div>'+
+    '<div><label>From</label><input type="number" id="qmin" value="1" min="1"></div>'+
+    '<div><label>To</label><input type="number" id="qmax" value="12" min="1"></div>'+
+    '<button id="qn">New question</button>'+
     '<span class="st" id="qst">0 / 0</span></div>'+
     '<div class="pb"><div class="fl" id="qpb"></div></div>'+
     '<div class="qi">'+
     '<div class="qq" id="qq">7 × 8</div>'+
     '<div class="ai">'+
     '<input type="number" id="qa" placeholder="?">'+
-    '<button id="qv">Vérifier</button></div>'+
+    '<button id="qv">Check</button></div>'+
     '<div class="fb" id="qfb"></div>'+
     '<div class="ht" id="qh"></div></div>'+
-    '<div class="sh" style="margin-top:24px"> Astuces de calcul mental — gagne du temps !</div>'+
-    '<div class="he"><p>Ces <strong>astuces</strong> remplacent les méthodes qu\'on t\'a apprises à l\'école. <strong>Plus rapides, plus simples</strong>. Une fois que tu les maîtrises, tu calcules <strong>en un regard</strong> ce qui prenait des lignes. <strong>Entraîne-toi avec le quiz</strong> au-dessus !</p></div>'+
+    '<div class="sh" style="margin-top:24px"> Mental math tricks — save time !</div>'+
+    '<div class="he"><p>These <strong>tricks</strong> replace the methods you learned in school. <strong>Faster, simpler</strong>. Once you master them, you calculate <strong>at a glance</strong> what used to take lines of work. <strong>Practice with the quiz</strong> above !</p></div>'+
     '<div class="as" id="qast"></div>';
 
   panels[3].innerHTML = qhtml;
@@ -343,22 +343,22 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
   newQ();
 
   var astuces = [
-    {t:"×11 en 2 secondes",e:"Pour <sp class=\"fo\">multiplier par 11</sp> un nombre à 2 chiffres : <sp class=\"fo\">sépare les chiffres, insère leur somme</sp>. 11 × 23 → 2 / 2+3 / 3 = <strong>253</strong>. Si la somme dépasse 9, retiens 1.",g:" 11×34 = 3(7)4 = 374  |  11×47 = 4(11)7 = 517  |  11×72 = 7(9)2 = 792"},
-    {t:"×9, ×99, ×999 sans calcul",e:"<sp class=\"fo\">9n = 10n − n</sp>, <sp class=\"fo\">99n = 100n − n</sp>, <sp class=\"fo\">999n = 1000n − n</sp>. Au lieu de multiplier, tu <sp class=\"fo\">décales et tu soustrais</sp>. 9 × 37 = 370 − 37 = <strong>333</strong>.",g:" 99×15 = 1500−15 = 1485  |  999×8 = 8000−8 = 7992"},
-    {t:"×25 = ÷4 ×100",e:"<sp class=\"fo\">25 = 100÷4</sp>. Donc ×25 = <sp class=\"fo\">divise par 4, multiplie par 100</sp>. 25 × 28 = (28÷4)×100 = 7×100 = <strong>700</strong>. Si pas entier, prends les décimales.",g:" 25×13 = 3,25×100 = 325  |  25×44 = 11×100 = 1100  |  25×7 = 1,75×100 = 175"},
-    {t:"×125 = ÷8 ×1000",e:"<sp class=\"fo\">125 = 1000÷8</sp>. ×125 = <sp class=\"fo\">divise par 8, multiplie par 1000</sp>. 125 × 32 = (32÷8)×1000 = 4×1000 = <strong>4000</strong>.",g:" 125×24 = 3×1000 = 3000  |  125×9 = 1,125×1000 = 1125  |  125×48 = 6×1000 = 6000"},
-    {t:"×5 = ÷2 ×10",e:"<sp class=\"fo\">5 = 10÷2</sp>. Donc ×5 = <sp class=\"fo\">divise par 2, multiplie par 10</sp>. 5 × 37 = (37÷2)×10 = 18,5×10 = <strong>185</strong>. Plus rapide que la table du 5 !",g:" 5×48 = 24×10 = 240  |  5×123 = 61,5×10 = 615  |  5×7 = 3,5×10 = 35"},
-    {t:"×50 = ÷2 ×100",e:"<sp class=\"fo\">50 = 100÷2</sp>. ×50 = <sp class=\"fo\">divise par 2, multiplie par 100</sp>. 50 × 37 = (37÷2)×100 = 18,5×100 = <strong>1850</strong>.",g:" 50×84 = 42×100 = 4200  |  50×13 = 6,5×100 = 650"},
-    {t:"×15 = ×10 + ×5",e:"<sp class=\"fo\">×15 = ×10 + la moitié de ×10</sp>. 15 × 34 = 340 + 170 = <strong>510</strong>. Pas besoin de poser l'opération.",g:" 15×42 = 420+210 = 630  |  15×8 = 80+40 = 120  |  15×120 = 1200+600 = 1800"},
-    {t:"×12 = ×10 + ×2",e:"La <sp class=\"fo\">multiplication par 12</sp> la plus simple : <sp class=\"fo\">fois 10 + fois 2</sp>. 12 × 34 = 340 + 68 = <strong>408</strong>.",g:" 12×23 = 230+46 = 276  |  12×15 = 150+30 = 180  |  12×41 = 410+82 = 492"},
-    {t:"Pourcentages inversés",e:"<sp class=\"fo\">x% de y = y% de x</sp>. 8% de 25 = 25% de 8 = <strong>2</strong>. 4% de 75 = 75% de 4 = <strong>3</strong>. Prends le pourcentage le plus facile !",g:" 7% de 50 = 50% de 7 = 3,5  |  12% de 25 = 25% de 12 = 3  |  6% de 150 = 150% de 6 = 9"},
-    {t:"15% de pourboire",e:"<sp class=\"fo\">10% + la moitié de 10%</sp>. 15% de 42 € = 4,20 + 2,10 = <strong>6,30 €</strong>. Calcule le pourboire en un regard.",g:" 15% de 80 = 8+4 = 12  |  15% de 35 = 3,50+1,75 = 5,25"},
-    {t:"Carrés finissant par 5 en 1 seconde",e:"<sp class=\"fo\">n × (n+1)</sp> suivi de <sp class=\"fo\">25</sp>. 35² = 3×4=12 → <strong>1225</strong>. 85² = 8×9=72 → <strong>7225</strong>. Aucune calculatrice nécessaire.",g:" 15²=225 | 25²=625 | 45²=2025 | 55²=3025 | 65²=4225 | 75²=5625"},
-    {t:"Différence de carrés",e:"<sp class=\"fo\">(a+b)(a-b) = a² − b²</sp>. 47 × 53 = (50−3)(50+3) = 2500 − 9 = <strong>2491</strong>. Transforme une multiplication en différence de carrés.",g:" 32×28 = 30²−2² = 900−4 = 896  |  41×39 = 40²−1² = 1599  |  64×56 = 60²−4² = 3584"},
-    {t:"Multiplier deux nombres entre 90 et 99",e:"Si les deux sont <sp class=\"fo\">proches de 100</sp> : (100−a)(100−b) = (100−a−b)×100 + a×b. 96×93 → a=4,b=7 → (100−11)=89, 4×7=28 → <strong>8928</strong>.",g:" 97×94 → a=3,b=6 → 91×100+18 = 9118  |  98×97 → 95×100+6 = 9506"},
-    {t:"Divisibilité par 3, 6, 9",e:"Un nombre est divisible par 3 si <sp class=\"fo\">la somme de ses chiffres est divisible par 3</sp>. Par 9 si la somme est divisible par 9. Par 6 s'il est pair ET divisible par 3. 567 → 5+6+7=18 → divisible par 3 et 9.",g:" 123 → 1+2+3=6 → ÷3 ✓  |  729 → 7+2+9=18 → ÷3 et ÷9 ✓"},
-    {t:"Règle de 72 (intérêts composés)",e:"Pour estimer le <sp class=\"fo\">temps de doublement d'un capital</sp> : <sp class=\"fo\">72 ÷ taux annuel</sp>. À 6% par an : 72÷6 = <strong>12 ans</strong> pour doubler. Oublie les formules d'intérêts.",g:" 8% → 72÷8 = 9 ans  |  4% → 72÷4 = 18 ans  |  12% → 72÷12 = 6 ans"},
-    {t:"Vérifier un calcul — preuve par 9",e:"Fais la <sp class=\"fo\">somme des chiffres</sp> de chaque nombre jusqu'à obtenir un seul chiffre (le reste modulo 9). 23×15=345 → 2+3=5, 1+5=6, 5×6=30→3, et 3+4+5=12→3. Si c'est égal, le calcul est juste.",g:" 47×32 → 4+7=11→2, 3+2=5, 2×5=10→1 ; résultat 1504→1+5+0+4=10→1 ✓"},
+    {t:"×11 in 2 seconds",e:"To <sp class=\"fo\">multiply by 11</sp> a 2-digit number : <sp class=\"fo\">split the digits, insert their sum</sp>. 11 × 23 → 2 / 2+3 / 3 = <strong>253</strong>. If the sum exceeds 9, carry the 1.",g:" 11×34 = 3(7)4 = 374  |  11×47 = 4(11)7 = 517  |  11×72 = 7(9)2 = 792"},
+    {t:"×9, ×99, ×999 without calculation",e:"<sp class=\"fo\">9n = 10n − n</sp>, <sp class=\"fo\">99n = 100n − n</sp>, <sp class=\"fo\">999n = 1000n − n</sp>. Instead of multiplying, <sp class=\"fo\">shift and subtract</sp>. 9 × 37 = 370 − 37 = <strong>333</strong>.",g:" 99×15 = 1500−15 = 1485  |  999×8 = 8000−8 = 7992"},
+    {t:"×25 = ÷4 ×100",e:"<sp class=\"fo\">25 = 100÷4</sp>. So ×25 = <sp class=\"fo\">divide by 4, multiply by 100</sp>. 25 × 28 = (28÷4)×100 = 7×100 = <strong>700</strong>. If not whole, keep the decimals.",g:" 25×13 = 3.25×100 = 325  |  25×44 = 11×100 = 1100  |  25×7 = 1.75×100 = 175"},
+    {t:"×125 = ÷8 ×1000",e:"<sp class=\"fo\">125 = 1000÷8</sp>. ×125 = <sp class=\"fo\">divide by 8, multiply by 1000</sp>. 125 × 32 = (32÷8)×1000 = 4×1000 = <strong>4000</strong>.",g:" 125×24 = 3×1000 = 3000  |  125×9 = 1.125×1000 = 1125"},
+    {t:"×5 = ÷2 ×10",e:"<sp class=\"fo\">5 = 10÷2</sp>. So ×5 = <sp class=\"fo\">divide by 2, multiply by 10</sp>. 5 × 37 = (37÷2)×10 = 18.5×10 = <strong>185</strong>. Faster than memorizing the table !",g:" 5×48 = 24×10 = 240  |  5×123 = 61.5×10 = 615  |  5×7 = 3.5×10 = 35"},
+    {t:"×50 = ÷2 ×100",e:"<sp class=\"fo\">50 = 100÷2</sp>. ×50 = <sp class=\"fo\">divide by 2, multiply by 100</sp>. 50 × 37 = (37÷2)×100 = 18.5×100 = <strong>1850</strong>.",g:" 50×84 = 42×100 = 4200  |  50×13 = 6.5×100 = 650"},
+    {t:"×15 = ×10 + ×5",e:"<sp class=\"fo\">×15 = ×10 + half of ×10</sp>. 15 × 34 = 340 + 170 = <strong>510</strong>. No need to write it down.",g:" 15×42 = 420+210 = 630  |  15×8 = 80+40 = 120  |  15×120 = 1200+600 = 1800"},
+    {t:"×12 = ×10 + ×2",e:"The <sp class=\"fo\">easiest way to multiply by 12</sp> : <sp class=\"fo\">times 10 + times 2</sp>. 12 × 34 = 340 + 68 = <strong>408</strong>.",g:" 12×23 = 230+46 = 276  |  12×15 = 150+30 = 180"},
+    {t:"Reverse percentages",e:"<sp class=\"fo\">x% of y = y% of x</sp>. 8% of 25 = 25% of 8 = <strong>2</strong>. 4% of 75 = 75% of 4 = <strong>3</strong>. Always use the easier percentage !",g:" 7% of 50 = 50% of 7 = 3.5  |  12% of 25 = 25% of 12 = 3"},
+    {t:"15% tip trick",e:"<sp class=\"fo\">10% + half of 10%</sp>. 15% of $42 = 4.20 + 2.10 = <strong>$6.30</strong>. Calculate the tip at a glance.",g:" 15% of $80 = 8+4 = $12  |  15% of $35 = 3.50+1.75 = $5.25"},
+    {t:"Squares ending in 5 in 1 second",e:"<sp class=\"fo\">n × (n+1)</sp> followed by <sp class=\"fo\">25</sp>. 35² = 3×4=12 → <strong>1225</strong>. 85² = 8×9=72 → <strong>7225</strong>. No calculator needed.",g:" 15²=225 | 25²=625 | 45²=2025 | 55²=3025 | 65²=4225 | 75²=5625"},
+    {t:"Difference of squares",e:"<sp class=\"fo\">(a+b)(a-b) = a² − b²</sp>. 47 × 53 = (50−3)(50+3) = 2500 − 9 = <strong>2491</strong>. Turn multiplication into a square difference.",g:" 32×28 = 30²−2² = 900−4 = 896  |  41×39 = 40²−1² = 1599"},
+    {t:"Multiplying two numbers near 100",e:"If both are <sp class=\"fo\">close to 100</sp> : (100−a)(100−b) = (100−a−b)×100 + a×b. 96×93 → a=4,b=7 → (100−11)=89, 4×7=28 → <strong>8928</strong>.",g:" 97×94 → a=3,b=6 → 91×100+18 = 9118  |  98×97 → 95×100+6 = 9506"},
+    {t:"Divisibility by 3, 6, 9",e:"A number is divisible by 3 if <sp class=\"fo\">the sum of its digits is divisible by 3</sp>. By 9 if the sum is divisible by 9. By 6 if even AND divisible by 3. 567 → 5+6+7=18 → divisible by 3 and 9.",g:" 123 → 1+2+3=6 → ÷3 ✓  |  729 → 7+2+9=18 → ÷3 and ÷9 ✓"},
+    {t:"Rule of 72 (compound interest)",e:"To estimate <sp class=\"fo\">how long to double your money</sp> : <sp class=\"fo\">72 ÷ annual rate</sp>. At 6% per year : 72÷6 = <strong>12 years</strong> to double. Forget the formulas.",g:" 8% → 72÷8 = 9 years  |  4% → 72÷4 = 18 years  |  12% → 72÷12 = 6 years"},
+    {t:"Check a calculation — casting out nines",e:"<sp class=\"fo\">Sum the digits</sp> of each number until you get a single digit (remainder mod 9). 23×15=345 → 2+3=5, 1+5=6, 5×6=30→3, and 3+4+5=12→3. If they match, the calculation is correct.",g:" 47×32 → 4+7=11→2, 3+2=5, 2×5=10→1 ; result 1504→1+5+0+4=10→1 ✓"},
   ];
 
   var ah = '';

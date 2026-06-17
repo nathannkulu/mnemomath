@@ -1,28 +1,28 @@
 # MathMnemo
 
-Application interactive de **tables de multiplication**, **puissances** et **racines** (de la 2e à la 25e), avec un **système mnémotechnique** et un **quiz** intégré.
+Interactive **multiplication tables**, **powers**, and **roots** (2nd to 25th) application, with a **mnemonic system** and built-in **quiz**.
 
-## Fonctionnalités
+## Features
 
-- **Tables de multiplication** — de 1 × 1 à 25 × 25, avec contrôles dynamiques
-- **Puissances** — n¹, n², n³... jusqu'à n²⁵, tableau complet + puissances de 2
-- **Racines** — racine carrée, cubique, et jusqu'à la 25e, avec détection des racines parfaites
-- **Quiz mnémotechnique** — mode entraînement (multiplication, puissances, racines) avec score
-- **Astuces de calcul mental** — 14 techniques pour calculer plus vite (×11, ×25, ×125, pourcentages, carrés...)
-- **Mode dynamique** — choisis un nombre et vois tout en un
-- **Mode complet** — toutes les tables affichées en une page (imprimable)
+- **Multiplication tables** — from 1×1 to 25×25 with dynamic controls
+- **Powers** — n¹, n², n³... up to n²⁵, full table + powers of 2
+- **Roots** — square root, cube root, up to 25th root, with perfect root detection
+- **Mnemonic quiz** — practice mode (multiplication, powers, roots) with scoring
+- **Mental math tricks** — 14 techniques to calculate faster (×11, ×25, ×125, percentages, squares...)
+- **Dynamic mode** — pick a number and see everything at once
+- **Full view mode** — all tables displayed on one printable page
 
-## Fichiers
+## Files
 
-| Fichier | Description |
+| File | Description |
 |---|---|
-| `index.html` | Accueil + quiz + astuces mnémotechniques |
-| `multiplication.html` | Rubrique tables de multiplication |
-| `puissances.html` | Rubrique puissances |
-| `racines.html` | Rubrique racines |
-| `dynamique.html` | Vue interactive combinée |
-| `complet.html` | Vue statique complète (imprimable) |
+| `index.html` | Home + quiz + mnemonic tricks |
+| `multiplication.html` | Multiplication tables section |
+| `powers.html` | Powers section |
+| `roots.html` | Roots section |
+| `dynamic.html` | Combined interactive view |
+| `full.html` | Complete static printable view |
 
-## Utilisation
+## Usage
 
-Ouvre n'importe quel fichier `.html` dans un navigateur. Aucune installation nécessaire, pas de dépendances externes.
+Open any `.html` file in a browser. No installation required, no external dependencies.

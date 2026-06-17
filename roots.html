@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Racines · √ ∛ interactif</title>
+<title>Roots · √ ∛ interactive</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
@@ -43,24 +43,24 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 <body>
 <div id="app">
   <div class="liens">
-    <a href="index.html">Accueil</a>
+    <a href="index.html">Home</a>
     <a href="multiplication.html">Multiplication</a>
-    <a href="puissances.html">Puissances</a>
-    <a href="#" class="on">Racines</a>
+    <a href="powers.html">Powers</a>
+    <a href="#" class="on">Roots</a>
   </div>
-  <h1> Racines</h1>
-  <p class="sub">Racines carrées, cubiques et jusqu'à la 25e</p>
+  <h1> Roots</h1>
+  <p class="sub">Square roots, cube roots, and up to the 25th root</p>
 
   <div class="cp">
-    <div><label>Nombre</label><input type="number" id="n" value="144" min="1" max="999999"></div>
-    <div><label>Exposant</label><select id="ridx"></select></div>
+    <div><label>Number</label><input type="number" id="n" value="144" min="1" max="999999"></div>
+    <div><label>Exponent</label><select id="ridx"></select></div>
     <div style="display:flex;align-items:center;gap:6px">
-      <div><label>√n Liste 1 →</label><div style="display:flex;align-items:center;gap:6px"><input type="range" id="listR" min="1" max="50" value="15"><span class="rv" id="listRV">15</span></div></div>
+      <div><label>√n List 1 →</label><div style="display:flex;align-items:center;gap:6px"><input type="range" id="listR" min="1" max="50" value="15"><span class="rv" id="listRV">15</span></div></div>
     </div>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <div class="ck"><input type="checkbox" id="sc"><label>Afficher carrés</label></div>
-      <div class="ck"><input type="checkbox" id="scu"><label>Afficher cubes</label></div>
-      <div class="ck"><input type="checkbox" id="st"><label>Toutes racines</label></div>
+      <div class="ck"><input type="checkbox" id="sc"><label>Show squares</label></div>
+      <div class="ck"><input type="checkbox" id="scu"><label>Show cubes</label></div>
+      <div class="ck"><input type="checkbox" id="st"><label>All roots</label></div>
     </div>
     <span class="st" id="info"></span>
   </div>
@@ -72,11 +72,11 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 (function(){
   var s={0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹'};
   function S(n){return String(n).split('').map(function(c){return s[c]||c}).join('');}
-  var rn=['','','carrée','cubique','4e','5e','6e','7e','8e','9e','10e','11e','12e','13e','14e','15e','16e','17e','18e','19e','20e','21e','22e','23e','24e','25e'];
+  var rn=['','','square','cube','4th','5th','6th','7th','8th','9th','10th','11th','12th','13th','14th','15th','16th','17th','18th','19th','20th','21st','22nd','23rd','24th','25th'];
   var nEl=document.getElementById('n'),ridxEl=document.getElementById('ridx'),listREl=document.getElementById('listR'),scEl=document.getElementById('sc'),scuEl=document.getElementById('scu'),stEl=document.getElementById('st');
   scEl.checked=true;scuEl.checked=true;stEl.checked=true;
 
-  for(var ri=2;ri<=25;ri++){var o=document.createElement('option');o.value=ri;o.textContent=ri+'e - '+rn[ri];ridxEl.appendChild(o);}
+  for(var ri=2;ri<=25;ri++){var o=document.createElement('option');o.value=ri;o.textContent=ri+'th - '+rn[ri];ridxEl.appendChild(o);}
 
   function render(){
     var n=parseFloat(nEl.value)||1,ridx=parseInt(ridxEl.value)||2,lr=parseInt(listREl.value)||15;
@@ -84,43 +84,43 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 
     var rv=Math.pow(n,1/ridx),perf=Number.isInteger(rv)&&Math.pow(Math.round(rv),ridx)===n;
 
-    var h='<div class="sc"><h3>'+S(ridx)+'√'+n.toLocaleString('fr-FR')+'</h3>';
-    h+='<div class="rw"><span class="op">Racine '+rn[ridx]+'</span><span class="res">'+rv.toFixed(10).replace(/\.?0+$/,'')+'</span></div>';
-    h+='<div class="rw"><span class="op">Vérif : '+rv.toFixed(6)+S(ridx)+'</span><span class="res">'+Math.pow(rv,ridx).toFixed(4)+'</span></div>';
-    if(perf)h+='<div class="rw hl"><span class="op"> Parfait !</span><span class="res">= '+Math.round(rv)+'</span></div>';
+    var h='<div class="sc"><h3>'+S(ridx)+'√'+n.toLocaleString('en-US')+'</h3>';
+    h+='<div class="rw"><span class="op">'+rn[ridx]+' root</span><span class="res">'+rv.toFixed(10).replace(/\.?0+$/,'')+'</span></div>';
+    h+='<div class="rw"><span class="op">Check : '+rv.toFixed(6)+S(ridx)+'</span><span class="res">'+Math.pow(rv,ridx).toFixed(4)+'</span></div>';
+    if(perf)h+='<div class="rw hl"><span class="op"> Perfect !</span><span class="res">= '+Math.round(rv)+'</span></div>';
     h+='</div>';
 
-    h+='<div class="sc"><h3>Autres racines de '+n.toLocaleString('fr-FR')+'</h3>';
+    h+='<div class="sc"><h3>Other roots of '+n.toLocaleString('en-US')+'</h3>';
     [2,3,4,5,6,7,8,9,10].forEach(function(r){if(r===ridx)return;h+='<div class="rw"><span class="op">'+S(r)+'√n</span><span class="res">'+Math.pow(n,1/r).toFixed(6)+'</span></div>';});
     h+='</div>';
     document.getElementById('main').innerHTML=h;
 
     var ex='';
 
-    ex+='<div class="s">Liste des racines '+rn[ridx]+' ('+S(ridx)+'√n) de 1 à '+lr+'</div><div class="gr">';
-    for(var i=1;i<=lr;i++){var v=Math.pow(i,1/ridx),ip=Math.pow(Math.round(v),ridx)===i;ex+='<div class="cd"><h3>'+S(ridx)+'√'+i+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+v.toFixed(8).replace(/\.?0+$/,'')+'</span></div>'+(ip?'<div class="rw hl"><span class="op"> Parfait</span><span class="res">='+Math.round(v)+'</span></div>':'')+'</div>';}
+    ex+='<div class="s">List of '+rn[ridx]+' roots ('+S(ridx)+'√n) from 1 to '+lr+'</div><div class="gr">';
+    for(var i=1;i<=lr;i++){var v=Math.pow(i,1/ridx),ip=Math.pow(Math.round(v),ridx)===i;ex+='<div class="cd"><h3>'+S(ridx)+'√'+i+'</h3><div class="rw"><span class="op">Value</span><span class="res">'+v.toFixed(8).replace(/\.?0+$/,'')+'</span></div>'+(ip?'<div class="rw hl"><span class="op"> Perfect</span><span class="res">='+Math.round(v)+'</span></div>':'')+'</div>';}
     ex+='</div>';
 
     if(scEl.checked){
-      ex+='<div class="s">Racines carrées √n de 1 à 25</div><div class="gr">';
-      for(var rc=1;rc<=25;rc++){var rv2=Math.sqrt(rc),p2=Number.isInteger(rv2);ex+='<div class="cd"><h3>√'+rc+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(p2?rv2:rv2.toFixed(6))+'</span></div>'+(p2?'<div class="rw hl"><span class="op"> Parfait</span><span class="res">= '+rv2+'</span></div>':'')+'</div>';}
+      ex+='<div class="s">Square roots √n from 1 to 25</div><div class="gr">';
+      for(var rc=1;rc<=25;rc++){var rv2=Math.sqrt(rc),p2=Number.isInteger(rv2);ex+='<div class="cd"><h3>√'+rc+'</h3><div class="rw"><span class="op">Value</span><span class="res">'+(p2?rv2:rv2.toFixed(6))+'</span></div>'+(p2?'<div class="rw hl"><span class="op"> Perfect</span><span class="res">= '+rv2+'</span></div>':'')+'</div>';}
       ex+='</div>';
     }
 
     if(scuEl.checked){
-      ex+='<div class="s">Racines cubiques ∛n de 1 à 25</div><div class="gr">';
-      for(var r3=1;r3<=25;r3++){var v3=Math.cbrt(r3),p3=Number.isInteger(v3);ex+='<div class="cd"><h3>∛'+r3+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(p3?v3:v3.toFixed(6))+'</span></div>'+(p3?'<div class="rw hl"><span class="op"> Parfait</span><span class="res">= '+v3+'</span></div>':'')+'</div>';}
+      ex+='<div class="s">Cube roots ∛n from 1 to 25</div><div class="gr">';
+      for(var r3=1;r3<=25;r3++){var v3=Math.cbrt(r3),p3=Number.isInteger(v3);ex+='<div class="cd"><h3>∛'+r3+'</h3><div class="rw"><span class="op">Value</span><span class="res">'+(p3?v3:v3.toFixed(6))+'</span></div>'+(p3?'<div class="rw hl"><span class="op"> Perfect</span><span class="res">= '+v3+'</span></div>':'')+'</div>';}
       ex+='</div>';
     }
 
     if(stEl.checked){
-      ex+='<div class="s">Toutes les racines de '+n.toLocaleString('fr-FR')+' (2e à 25e)</div><div class="sc"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:4px">';
+      ex+='<div class="s">All roots of '+n.toLocaleString('en-US')+' (2nd to 25th)</div><div class="sc"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:4px">';
       for(var r2=2;r2<=25;r2++)ex+='<div class="rw"><span class="op">'+S(r2)+'√n</span><span class="res">'+Math.pow(n,1/r2).toFixed(8).replace(/\.?0+$/,'')+'</span></div>';
       ex+='</div></div>';
     }
 
     document.getElementById('extra').innerHTML=ex;
-    document.getElementById('info').textContent=(scEl.checked?'√ 1-25 · ':'')+(scuEl.checked?'∛ 1-25 · ':'')+(stEl.checked?'toutes racines · ':'')+'liste 1-'+lr;
+    document.getElementById('info').textContent=(scEl.checked?'√ 1-25 · ':'')+(scuEl.checked?'∛ 1-25 · ':'')+(stEl.checked?'all roots · ':'')+'list 1-'+lr;
   }
 
   nEl.addEventListener('input',render);ridxEl.addEventListener('change',render);listREl.addEventListener('input',render);scEl.addEventListener('change',render);scuEl.addEventListener('change',render);stEl.addEventListener('change',render);

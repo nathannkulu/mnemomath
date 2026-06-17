@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Multiplication · Tables interactives</title>
+<title>Multiplication · Interactive Tables</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
@@ -34,19 +34,19 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 <body>
 <div id="app">
   <div class="liens">
-    <a href="index.html">Accueil</a>
+    <a href="index.html">Home</a>
     <a href="#" class="on">Multiplication</a>
-    <a href="puissances.html">Puissances</a>
-    <a href="racines.html">Racines</a>
+    <a href="powers.html">Powers</a>
+    <a href="roots.html">Roots</a>
   </div>
-  <h1> Tables de multiplication</h1>
-  <p class="sub">Explore les tables de 1 à 25 avec des contrôles dynamiques</p>
+  <h1> Multiplication tables</h1>
+  <p class="sub">Explore tables from 1 to 25 with dynamic controls</p>
 
   <div class="cp">
-    <div><label>Afficher les tables</label><select id="mode"><option value="range">Plage 1 → X</option><option value="single">Table d'un nombre</option><option value="all">Toutes (1-25)</option></select></div>
-    <div><label>Nombre</label><input type="number" id="n" value="7" min="1" max="999"></div>
-    <div><label>De</label><input type="number" id="f" value="1" min="1" max="999"></div>
-    <div><label>À</label><input type="number" id="t" value="12" min="1" max="999"></div>
+    <div><label>Display</label><select id="mode"><option value="range">Range 1 → X</option><option value="single">Single number table</option><option value="all">All (1-25)</option></select></div>
+    <div><label>Number</label><input type="number" id="n" value="7" min="1" max="999"></div>
+    <div><label>From</label><input type="number" id="f" value="1" min="1" max="999"></div>
+    <div><label>To</label><input type="number" id="t" value="12" min="1" max="999"></div>
     <div><label>Tables 1 →</label><input type="number" id="r" value="6" min="1" max="25"></div>
     <button id="btn10">1-10</button>
     <button id="btn25">1-25</button>
@@ -62,14 +62,14 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
     var mode=modeEl.value,n=parseInt(nEl.value)||1,f=parseInt(fEl.value)||1,t=parseInt(tEl.value)||10,r=parseInt(rEl.value)||6;
     var h='';
     if(mode==='all'){
-      for(var i=1;i<=25;i++){h+='<div class="cd"><h3>Table de '+i+'</h3>';for(var j=1;j<=25;j++)h+='<div class="rw"><span class="op">'+i+' × '+j+'</span><span class="res">'+(i*j)+'</span></div>';h+='</div>';}
-      document.getElementById('info').textContent='25 tables × 25 = 625 résultats';
+      for(var i=1;i<=25;i++){h+='<div class="cd"><h3>Table of '+i+'</h3>';for(var j=1;j<=25;j++)h+='<div class="rw"><span class="op">'+i+' × '+j+'</span><span class="res">'+(i*j)+'</span></div>';h+='</div>';}
+      document.getElementById('info').textContent='25 tables × 25 = 625 results';
     } else if(mode==='single'){
       for(var j=f;j<=t;j++){h+='<div class="cd"><h3>'+n+' × '+j+'</h3>';h+='<div class="rw"><span class="op">'+n+' × '+j+'</span><span class="res">'+(n*j)+'</span></div></div>';}
-      document.getElementById('info').textContent=n+' × '+f+' à '+n+' × '+t+' = '+(t-f+1)+' résultats';
+      document.getElementById('info').textContent=n+' × '+f+' to '+n+' × '+t+' = '+(t-f+1)+' results';
     } else {
       for(var i=1;i<=r;i++){h+='<div class="cd"><h3>'+i+' × n</h3>';for(var j=f;j<=t;j++)h+='<div class="rw"><span class="op">'+i+' × '+j+'</span><span class="res">'+(i*j)+'</span></div>';h+='</div>';}
-      document.getElementById('info').textContent='Tables 1 à '+r+' × '+f+' à '+t+' = '+Math.max(0,t-f+1)*r+' résultats';
+      document.getElementById('info').textContent='Tables 1 to '+r+' × '+f+' to '+t+' = '+Math.max(0,t-f+1)*r+' results';
     }
     document.getElementById('res').innerHTML=h;
   }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MathMnemo · Tables complètes</title>
+<title>MathMnemo · Complete tables</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
@@ -23,9 +23,9 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 </head>
 <body>
 <div id="app">
-  <h1>MathMnemo · Tout en un</h1>
-  <p class="sub">Tables complètes : multiplication, puissances, racines</p>
-  <button class="btn" id="printBtn"> Imprimer</button>
+  <h1>MathMnemo · All in one</h1>
+  <p class="sub">Complete tables : multiplication, powers, roots</p>
+  <button class="btn" id="printBtn"> Print</button>
 
   <div id="content"></div>
 </div>
@@ -38,60 +38,51 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 
   var html = '';
 
-  // === 1. MULTIPLICATION 1-25 ===
-  html += '<div class="sh"> Multiplication — Tables de 1 à 25</div><div class="gr">';
+  html += '<div class="sh"> × Multiplication — Tables 1 to 25</div><div class="gr">';
   for(var i=1;i<=25;i++){
-    html += '<div class="cd"><h3>Table de '+i+'</h3>';
+    html += '<div class="cd"><h3>Table of '+i+'</h3>';
     for(var j=1;j<=25;j++) html += '<div class="rw"><span class="op">'+i+' × '+j+'</span><span class="res">'+(i*j)+'</span></div>';
     html += '</div>';
   }
   html += '</div>';
 
-  // === 2. PUISSANCES n² à n¹⁰ ===
-  html += '<div class="sh"> Puissances — n² à n¹⁰ pour n=1 à 25</div><div class="gr">';
+  html += '<div class="sh"> Powers — n² to n¹⁰ for n=1 to 25</div><div class="gr">';
   for(var b=1;b<=25;b++){
-    html += '<div class="cd"><h3>'+b+' (k=2 à 10)</h3>';
+    html += '<div class="cd"><h3>'+b+S(' k=2-10')+'</h3>';
     for(var k=2;k<=10;k++){
       var v = Math.pow(b,k);
       if(v>9e14) html += '<div class="rw"><span class="op">'+b+S(k)+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';
-      else html += '<div class="rw"><span class="op">'+b+S(k)+'</span><span class="res">'+v.toLocaleString('fr-FR')+'</span></div>';
+      else html += '<div class="rw"><span class="op">'+b+S(k)+'</span><span class="res">'+v.toLocaleString('en-US')+'</span></div>';
     }
     html += '</div>';
   }
   html += '</div>';
 
-  // === 3. PUISSANCES DE 2 ===
-  html += '<div class="sh"> 2ⁿ — n=1 à 25</div><div class="gr">';
-  for(var k2=1;k2<=25;k2++) html += '<div class="cd"><h3>2'+S(k2)+'</h3><div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('fr-FR')+'</span></div></div>';
+  html += '<div class="sh"> 2ⁿ — n=1 to 25</div><div class="gr">';
+  for(var k2=1;k2<=25;k2++) html += '<div class="cd"><h3>2'+S(k2)+'</h3><div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('en-US')+'</span></div></div>';
   html += '</div>';
 
-  // === 4. CARRÉS PARFAITS 1-25 ===
-  html += '<div class="sh"> Carrés parfaits — n² pour n=1 à 25</div><div class="gr">';
-  for(var c=1;c<=25;c++){
-    html += '<div class="cd"><h3>'+c+'²</h3><div class="rw"><span class="op">'+c+' × '+c+'</span><span class="res">'+(c*c)+'</span></div></div>';
-  }
+  html += '<div class="sh"> Perfect squares — n² for n=1 to 25</div><div class="gr">';
+  for(var c=1;c<=25;c++) html += '<div class="cd"><h3>'+c+'²</h3><div class="rw"><span class="op">'+c+' × '+c+'</span><span class="res">'+(c*c)+'</span></div></div>';
   html += '</div>';
 
-  // === 5. RACINES CARRÉES 1-25 ===
-  html += '<div class="sh"> Racines carrées — √n pour n=1 à 25</div><div class="gr">';
+  html += '<div class="sh"> Square roots — √n for n=1 to 25</div><div class="gr">';
   for(var rc=1;rc<=25;rc++){
     var rv = Math.sqrt(rc);
     var perf = Number.isInteger(rv);
-    html += '<div class="cd"><h3>√'+rc+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(perf?rv:rv.toFixed(6))+'</span></div>'+(perf?'<div class="rw hl" style="background:#1e3a2e;border-radius:4px;margin-top:4px"><span class="op"> Parfait</span><span class="res">= '+rv+'</span></div>':'')+'</div>';
+    html += '<div class="cd"><h3>√'+rc+'</h3><div class="rw"><span class="op">Value</span><span class="res">'+(perf?rv:rv.toFixed(6))+'</span></div>'+(perf?'<div class="rw hl" style="background:#1e3a2e;border-radius:4px;margin-top:4px"><span class="op"> Perfect</span><span class="res">= '+rv+'</span></div>':'')+'</div>';
   }
   html += '</div>';
 
-  // === 6. RACINES CUBIQUES 1-25 ===
-  html += '<div class="sh"> Racines cubiques — ∛n pour n=1 à 25</div><div class="gr">';
+  html += '<div class="sh"> Cube roots — ∛n for n=1 to 25</div><div class="gr">';
   for(var r3=1;r3<=25;r3++){
     var v3 = Math.cbrt(r3);
     var p3 = Number.isInteger(v3);
-    html += '<div class="cd"><h3>∛'+r3+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(p3?v3:v3.toFixed(6))+'</span></div>'+(p3?'<div class="rw hl" style="background:#1e3a2e;border-radius:4px;margin-top:4px"><span class="op"> Parfait</span><span class="res">= '+v3+'</span></div>':'')+'</div>';
+    html += '<div class="cd"><h3>∛'+r3+'</h3><div class="rw"><span class="op">Value</span><span class="res">'+(p3?v3:v3.toFixed(6))+'</span></div>'+(p3?'<div class="rw hl" style="background:#1e3a2e;border-radius:4px;margin-top:4px"><span class="op"> Perfect</span><span class="res">= '+v3+'</span></div>':'')+'</div>';
   }
   html += '</div>';
 
-  // === 7. RACINES 4e à 10e DE 1 À 10 ===
-  html += '<div class="sh"> Racines 4e à 10e — pour n=1 à 10</div><div class="gr">';
+  html += '<div class="sh"> 4th to 10th roots — for n=1 to 10</div><div class="gr">';
   for(var rn=1;rn<=10;rn++){
     html += '<div class="cd"><h3>n='+rn+'</h3>';
     for(var re=4;re<=10;re++){
@@ -102,8 +93,7 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
   }
   html += '</div>';
 
-  // === 8. RACINES 11e à 25e DE 1 À 5 ===
-  html += '<div class="sh"> Racines 11e à 25e — pour n=1 à 5</div><div class="gr">';
+  html += '<div class="sh"> 11th to 25th roots — for n=1 to 5</div><div class="gr">';
   for(var rn2=1;rn2<=5;rn2++){
     html += '<div class="cd"><h3>n='+rn2+'</h3>';
     for(var re2=11;re2<=25;re2++){
@@ -116,7 +106,6 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 
   document.getElementById('content').innerHTML = html;
 
-  // Highlight perfect roots
   var style = document.createElement('style');
   style.textContent = '.hl{background:#1e3a2e;border-radius:4px}';
   document.head.appendChild(style);

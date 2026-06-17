@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Puissances · n¹ n² n³ interactif</title>
+<title>Powers · n¹ n² n³ interactive</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
@@ -40,21 +40,21 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 <body>
 <div id="app">
   <div class="liens">
-    <a href="index.html">Accueil</a>
+    <a href="index.html">Home</a>
     <a href="multiplication.html">Multiplication</a>
-    <a href="#" class="on">Puissances</a>
-    <a href="racines.html">Racines</a>
+    <a href="#" class="on">Powers</a>
+    <a href="roots.html">Roots</a>
   </div>
-  <h1> Puissances</h1>
-  <p class="sub">Calcule les puissances : n¹, n², n³... et explore les puissances de 2</p>
+  <h1> Powers</h1>
+  <p class="sub">Calculate n¹, n², n³... and explore powers of 2</p>
 
   <div class="cp">
-    <div><label>Nombre</label><input type="number" id="n" value="3" min="1" max="100"></div>
-    <div><label>Exposant max</label><input type="number" id="e" value="10" min="1" max="25"></div>
+    <div><label>Number</label><input type="number" id="n" value="3" min="1" max="100"></div>
+    <div><label>Max exponent</label><input type="number" id="e" value="10" min="1" max="25"></div>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <div class="ck"><input type="checkbox" id="s2"><label>Afficher 2ⁿ</label></div>
-      <div class="ck"><input type="checkbox" id="st"><label>Tableau n¹ à n¹⁰ (1-25)</label></div>
-      <div class="ck"><input type="checkbox" id="sc"><label>Carrés 1-25</label></div>
+      <div class="ck"><input type="checkbox" id="s2"><label>Show 2ⁿ</label></div>
+      <div class="ck"><input type="checkbox" id="st"><label>Table n¹ to n¹⁰ (1-25)</label></div>
+      <div class="ck"><input type="checkbox" id="sc"><label>Squares 1-25</label></div>
     </div>
     <span class="st" id="info"></span>
   </div>
@@ -71,33 +71,33 @@ h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
 
   function render(){
     var n=parseInt(nEl.value)||1,e=parseInt(eEl.value)||1;
-    var h='<div class="sc"><h3>'+n+' (k=1 à '+e+')</h3>';
+    var h='<div class="sc"><h3>'+n+S(' (k=1 to '+e)+')</h3>';
     for(var k=1;k<=e;k++){
       var v=Math.pow(n,k);
       if(v>9e14)h+='<div class="rw"><span class="op">'+n+S(k)+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';
-      else h+='<div class="rw"><span class="op">'+n+S(k)+'</span><span class="res">'+v.toLocaleString('fr-FR')+'</span></div>';
+      else h+='<div class="rw"><span class="op">'+n+S(k)+'</span><span class="res">'+v.toLocaleString('en-US')+'</span></div>';
     }
     h+='</div>';
     if(s2El.checked){
-      h+='<div class="sc"><h3>2ⁿ de n=1 à 25</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:3px">';
-      for(var k2=1;k2<=25;k2++)h+='<div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('fr-FR')+'</span></div>';
+      h+='<div class="sc"><h3>2ⁿ (n=1 to 25)</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:3px">';
+      for(var k2=1;k2<=25;k2++)h+='<div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('en-US')+'</span></div>';
       h+='</div></div>';
     }
     document.getElementById('main').innerHTML=h;
 
     var ex='';
     if(stEl.checked){
-      ex+='<div class="s">Tableau n¹ à n¹⁰ pour n=1 à 25</div><div class="gr">';
-      for(var b=1;b<=25;b++){ex+='<div class="cd"><h3>'+b+' (k=1-10)</h3>';for(var k3=1;k3<=10;k3++){var v2=Math.pow(b,k3);if(v2>9e14)ex+='<div class="rw"><span class="op">k='+k3+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';else ex+='<div class="rw"><span class="op">k='+k3+'</span><span class="res">'+v2.toLocaleString('fr-FR')+'</span></div>';}ex+='</div>';}
+      ex+='<div class="s">Table n¹ to n¹⁰ for n=1 to 25</div><div class="gr">';
+      for(var b=1;b<=25;b++){ex+='<div class="cd"><h3>'+b+S(' k=1-10')+'</h3>';for(var k3=1;k3<=10;k3++){var v2=Math.pow(b,k3);if(v2>9e14)ex+='<div class="rw"><span class="op">k='+k3+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';else ex+='<div class="rw"><span class="op">k='+k3+'</span><span class="res">'+v2.toLocaleString('en-US')+'</span></div>';}ex+='</div>';}
       ex+='</div>';
     }
     if(scEl.checked){
-      ex+='<div class="s">Carrés parfaits n² pour n=1 à 25</div><div class="gr">';
+      ex+='<div class="s">Perfect squares n² for n=1 to 25</div><div class="gr">';
       for(var c=1;c<=25;c++)ex+='<div class="cd"><h3>'+c+'² = '+(c*c)+'</h3><div class="rw"><span class="op">'+c+' × '+c+'</span><span class="res">'+(c*c)+'</span></div></div>';
       ex+='</div>';
     }
     document.getElementById('extra').innerHTML=ex;
-    document.getElementById('info').textContent=n+' (k=1 à '+e+')'+' · '+(s2El.checked?'2ⁿ 1-25 · ':'')+(stEl.checked?'tableau n¹ à n¹⁰ · ':'')+(scEl.checked?'carrés':'');
+    document.getElementById('info').textContent=n+S(' from 1 to '+e)+' · '+(s2El.checked?'2ⁿ 1-25 · ':'')+(stEl.checked?'table n¹ to n¹⁰ · ':'')+(scEl.checked?'squares':'');
   }
 
   nEl.addEventListener('input',render);eEl.addEventListener('input',render);s2El.addEventListener('change',render);stEl.addEventListener('change',render);scEl.addEventListener('change',render);
