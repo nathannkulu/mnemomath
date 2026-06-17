@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Racines · √ ∛ interactif</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
+#app{max-width:1200px;margin:0 auto}
+h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
+.sub{text-align:center;color:#94a3b8;margin-bottom:16px;font-size:0.85rem}
+.liens{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.liens a{padding:8px 18px;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;background:#1e293b;color:#94a3b8;border:1px solid #334155;transition:all .2s}
+.liens a:hover{border-color:#fbbf24;color:#fbbf24}
+.liens a.on{background:#fbbf24;color:#0f172a;border-color:#fbbf24}
+.cp{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px;padding:14px;background:#1e293b;border-radius:10px;border:1px solid #334155}
+.cp label{font-size:0.78rem;color:#94a3b8;display:block;margin-bottom:3px}
+.cp input,.cp select{padding:6px 10px;border:1px solid #334155;border-radius:6px;background:#0f172a;color:#e2e8f0;font-size:0.9rem;outline:none;text-align:center}
+.cp input:focus,.cp select:focus{border-color:#fbbf24}
+.cp input[type=number]{width:70px}
+.cp input[type=range]{width:140px;accent-color:#fbbf24;border:none;padding:0;background:transparent}
+.rv{color:#fbbf24;font-weight:700;min-width:24px;text-align:center}
+.cp .ck{display:flex;align-items:center;gap:6px}
+.cp .ck input{width:auto;accent-color:#fbbf24}
+.cp .ck label{display:inline;margin:0}
+.cp .st{font-size:0.82rem;color:#94a3b8;margin-left:auto}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px}
+.cd{background:#1e293b;border-radius:8px;padding:10px;border:1px solid #334155;transition:border-color .2s}
+.cd:hover{border-color:#fbbf24}
+.cd h3{font-size:0.85rem;color:#fbbf24;text-align:center;margin-bottom:4px}
+.cd .rw{display:flex;justify-content:space-between;padding:2px 6px;font-size:0.8rem;border-bottom:1px solid #1a1f2e}
+.cd .rw:last-child{border-bottom:none}
+.cd .op{color:#94a3b8}.cd .res{color:#f1f5f9;font-weight:600}
+.sc{background:#1e293b;border-radius:10px;padding:14px;border:1px solid #334155}
+.sc h3{color:#fbbf24;margin-bottom:6px;text-align:center;font-size:0.95rem}
+.sc .rw{display:flex;justify-content:space-between;padding:3px 8px;font-size:0.85rem;border-bottom:1px solid #1a1f2e}
+.sc .rw:last-child{border-bottom:none}
+.sc .hl{background:#1e3a2e;border-radius:4px}
+.s{font-size:1.1rem;color:#fbbf24;margin:18px 0 10px;padding-bottom:4px;border-bottom:1px solid #334155}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="liens">
+    <a href="index.html">Accueil</a>
+    <a href="multiplication.html">Multiplication</a>
+    <a href="puissances.html">Puissances</a>
+    <a href="#" class="on">Racines</a>
+  </div>
+  <h1> Racines</h1>
+  <p class="sub">Racines carrées, cubiques et jusqu'à la 25e</p>
+
+  <div class="cp">
+    <div><label>Nombre</label><input type="number" id="n" value="144" min="1" max="999999"></div>
+    <div><label>Exposant</label><select id="ridx"></select></div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <div><label>√n Liste 1 →</label><div style="display:flex;align-items:center;gap:6px"><input type="range" id="listR" min="1" max="50" value="15"><span class="rv" id="listRV">15</span></div></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div class="ck"><input type="checkbox" id="sc"><label>Afficher carrés</label></div>
+      <div class="ck"><input type="checkbox" id="scu"><label>Afficher cubes</label></div>
+      <div class="ck"><input type="checkbox" id="st"><label>Toutes racines</label></div>
+    </div>
+    <span class="st" id="info"></span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px" id="main"></div>
+  <div id="extra"></div>
+</div>
+<script>
+(function(){
+  var s={0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹'};
+  function S(n){return String(n).split('').map(function(c){return s[c]||c}).join('');}
+  var rn=['','','carrée','cubique','4e','5e','6e','7e','8e','9e','10e','11e','12e','13e','14e','15e','16e','17e','18e','19e','20e','21e','22e','23e','24e','25e'];
+  var nEl=document.getElementById('n'),ridxEl=document.getElementById('ridx'),listREl=document.getElementById('listR'),scEl=document.getElementById('sc'),scuEl=document.getElementById('scu'),stEl=document.getElementById('st');
+  scEl.checked=true;scuEl.checked=true;stEl.checked=true;
+
+  for(var ri=2;ri<=25;ri++){var o=document.createElement('option');o.value=ri;o.textContent=ri+'e - '+rn[ri];ridxEl.appendChild(o);}
+
+  function render(){
+    var n=parseFloat(nEl.value)||1,ridx=parseInt(ridxEl.value)||2,lr=parseInt(listREl.value)||15;
+    document.getElementById('listRV').textContent=lr;
+
+    var rv=Math.pow(n,1/ridx),perf=Number.isInteger(rv)&&Math.pow(Math.round(rv),ridx)===n;
+
+    var h='<div class="sc"><h3>'+S(ridx)+'√'+n.toLocaleString('fr-FR')+'</h3>';
+    h+='<div class="rw"><span class="op">Racine '+rn[ridx]+'</span><span class="res">'+rv.toFixed(10).replace(/\.?0+$/,'')+'</span></div>';
+    h+='<div class="rw"><span class="op">Vérif : '+rv.toFixed(6)+S(ridx)+'</span><span class="res">'+Math.pow(rv,ridx).toFixed(4)+'</span></div>';
+    if(perf)h+='<div class="rw hl"><span class="op"> Parfait !</span><span class="res">= '+Math.round(rv)+'</span></div>';
+    h+='</div>';
+
+    h+='<div class="sc"><h3>Autres racines de '+n.toLocaleString('fr-FR')+'</h3>';
+    [2,3,4,5,6,7,8,9,10].forEach(function(r){if(r===ridx)return;h+='<div class="rw"><span class="op">'+S(r)+'√n</span><span class="res">'+Math.pow(n,1/r).toFixed(6)+'</span></div>';});
+    h+='</div>';
+    document.getElementById('main').innerHTML=h;
+
+    var ex='';
+
+    ex+='<div class="s">Liste des racines '+rn[ridx]+' ('+S(ridx)+'√n) de 1 à '+lr+'</div><div class="gr">';
+    for(var i=1;i<=lr;i++){var v=Math.pow(i,1/ridx),ip=Math.pow(Math.round(v),ridx)===i;ex+='<div class="cd"><h3>'+S(ridx)+'√'+i+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+v.toFixed(8).replace(/\.?0+$/,'')+'</span></div>'+(ip?'<div class="rw hl"><span class="op"> Parfait</span><span class="res">='+Math.round(v)+'</span></div>':'')+'</div>';}
+    ex+='</div>';
+
+    if(scEl.checked){
+      ex+='<div class="s">Racines carrées √n de 1 à 25</div><div class="gr">';
+      for(var rc=1;rc<=25;rc++){var rv2=Math.sqrt(rc),p2=Number.isInteger(rv2);ex+='<div class="cd"><h3>√'+rc+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(p2?rv2:rv2.toFixed(6))+'</span></div>'+(p2?'<div class="rw hl"><span class="op"> Parfait</span><span class="res">= '+rv2+'</span></div>':'')+'</div>';}
+      ex+='</div>';
+    }
+
+    if(scuEl.checked){
+      ex+='<div class="s">Racines cubiques ∛n de 1 à 25</div><div class="gr">';
+      for(var r3=1;r3<=25;r3++){var v3=Math.cbrt(r3),p3=Number.isInteger(v3);ex+='<div class="cd"><h3>∛'+r3+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(p3?v3:v3.toFixed(6))+'</span></div>'+(p3?'<div class="rw hl"><span class="op"> Parfait</span><span class="res">= '+v3+'</span></div>':'')+'</div>';}
+      ex+='</div>';
+    }
+
+    if(stEl.checked){
+      ex+='<div class="s">Toutes les racines de '+n.toLocaleString('fr-FR')+' (2e à 25e)</div><div class="sc"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:4px">';
+      for(var r2=2;r2<=25;r2++)ex+='<div class="rw"><span class="op">'+S(r2)+'√n</span><span class="res">'+Math.pow(n,1/r2).toFixed(8).replace(/\.?0+$/,'')+'</span></div>';
+      ex+='</div></div>';
+    }
+
+    document.getElementById('extra').innerHTML=ex;
+    document.getElementById('info').textContent=(scEl.checked?'√ 1-25 · ':'')+(scuEl.checked?'∛ 1-25 · ':'')+(stEl.checked?'toutes racines · ':'')+'liste 1-'+lr;
+  }
+
+  nEl.addEventListener('input',render);ridxEl.addEventListener('change',render);listREl.addEventListener('input',render);scEl.addEventListener('change',render);scuEl.addEventListener('change',render);stEl.addEventListener('change',render);
+  render();
+})();
+</script>
+</body>
+</html>

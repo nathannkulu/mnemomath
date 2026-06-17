@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puissances · n¹ n² n³ interactif</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
+#app{max-width:1200px;margin:0 auto}
+h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
+.sub{text-align:center;color:#94a3b8;margin-bottom:16px;font-size:0.85rem}
+.liens{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.liens a{padding:8px 18px;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;background:#1e293b;color:#94a3b8;border:1px solid #334155;transition:all .2s}
+.liens a:hover{border-color:#fbbf24;color:#fbbf24}
+.liens a.on{background:#fbbf24;color:#0f172a;border-color:#fbbf24}
+.cp{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px;padding:14px;background:#1e293b;border-radius:10px;border:1px solid #334155}
+.cp label{font-size:0.78rem;color:#94a3b8;display:block;margin-bottom:3px}
+.cp input,.cp select{padding:6px 10px;border:1px solid #334155;border-radius:6px;background:#0f172a;color:#e2e8f0;font-size:0.9rem;outline:none;text-align:center}
+.cp input:focus,.cp select:focus{border-color:#fbbf24}
+.cp input[type=number]{width:70px}
+.cp .ck{display:flex;align-items:center;gap:6px}
+.cp .ck input{width:auto;accent-color:#fbbf24}
+.cp .ck label{display:inline;margin:0}
+.cp .st{font-size:0.82rem;color:#94a3b8;margin-left:auto}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px}
+.cd{background:#1e293b;border-radius:8px;padding:10px;border:1px solid #334155;transition:border-color .2s}
+.cd:hover{border-color:#fbbf24}
+.cd h3{font-size:0.85rem;color:#fbbf24;text-align:center;margin-bottom:4px}
+.cd .rw{display:flex;justify-content:space-between;padding:2px 6px;font-size:0.8rem;border-bottom:1px solid #1a1f2e}
+.cd .rw:last-child{border-bottom:none}
+.cd .op{color:#94a3b8}.cd .res{color:#f1f5f9;font-weight:600}
+.sc{background:#1e293b;border-radius:10px;padding:14px;border:1px solid #334155}
+.sc h3{color:#fbbf24;margin-bottom:6px;text-align:center;font-size:0.95rem}
+.sc .rw{display:flex;justify-content:space-between;padding:3px 8px;font-size:0.85rem;border-bottom:1px solid #1a1f2e}
+.sc .rw:last-child{border-bottom:none}
+.s{font-size:1.1rem;color:#fbbf24;margin:18px 0 10px;padding-bottom:4px;border-bottom:1px solid #334155}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="liens">
+    <a href="index.html">Accueil</a>
+    <a href="multiplication.html">Multiplication</a>
+    <a href="#" class="on">Puissances</a>
+    <a href="racines.html">Racines</a>
+  </div>
+  <h1> Puissances</h1>
+  <p class="sub">Calcule les puissances : n¹, n², n³... et explore les puissances de 2</p>
+
+  <div class="cp">
+    <div><label>Nombre</label><input type="number" id="n" value="3" min="1" max="100"></div>
+    <div><label>Exposant max</label><input type="number" id="e" value="10" min="1" max="25"></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div class="ck"><input type="checkbox" id="s2"><label>Afficher 2ⁿ</label></div>
+      <div class="ck"><input type="checkbox" id="st"><label>Tableau n¹ à n¹⁰ (1-25)</label></div>
+      <div class="ck"><input type="checkbox" id="sc"><label>Carrés 1-25</label></div>
+    </div>
+    <span class="st" id="info"></span>
+  </div>
+
+  <div id="main" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px"></div>
+  <div id="extra"></div>
+</div>
+<script>
+(function(){
+  var s={0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹'};
+  function S(n){return String(n).split('').map(function(c){return s[c]||c}).join('');}
+  var nEl=document.getElementById('n'),eEl=document.getElementById('e'),s2El=document.getElementById('s2'),stEl=document.getElementById('st'),scEl=document.getElementById('sc');
+  s2El.checked=true;stEl.checked=true;scEl.checked=true;
+
+  function render(){
+    var n=parseInt(nEl.value)||1,e=parseInt(eEl.value)||1;
+    var h='<div class="sc"><h3>'+n+' (k=1 à '+e+')</h3>';
+    for(var k=1;k<=e;k++){
+      var v=Math.pow(n,k);
+      if(v>9e14)h+='<div class="rw"><span class="op">'+n+S(k)+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';
+      else h+='<div class="rw"><span class="op">'+n+S(k)+'</span><span class="res">'+v.toLocaleString('fr-FR')+'</span></div>';
+    }
+    h+='</div>';
+    if(s2El.checked){
+      h+='<div class="sc"><h3>2ⁿ de n=1 à 25</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:3px">';
+      for(var k2=1;k2<=25;k2++)h+='<div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('fr-FR')+'</span></div>';
+      h+='</div></div>';
+    }
+    document.getElementById('main').innerHTML=h;
+
+    var ex='';
+    if(stEl.checked){
+      ex+='<div class="s">Tableau n¹ à n¹⁰ pour n=1 à 25</div><div class="gr">';
+      for(var b=1;b<=25;b++){ex+='<div class="cd"><h3>'+b+' (k=1-10)</h3>';for(var k3=1;k3<=10;k3++){var v2=Math.pow(b,k3);if(v2>9e14)ex+='<div class="rw"><span class="op">k='+k3+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';else ex+='<div class="rw"><span class="op">k='+k3+'</span><span class="res">'+v2.toLocaleString('fr-FR')+'</span></div>';}ex+='</div>';}
+      ex+='</div>';
+    }
+    if(scEl.checked){
+      ex+='<div class="s">Carrés parfaits n² pour n=1 à 25</div><div class="gr">';
+      for(var c=1;c<=25;c++)ex+='<div class="cd"><h3>'+c+'² = '+(c*c)+'</h3><div class="rw"><span class="op">'+c+' × '+c+'</span><span class="res">'+(c*c)+'</span></div></div>';
+      ex+='</div>';
+    }
+    document.getElementById('extra').innerHTML=ex;
+    document.getElementById('info').textContent=n+' (k=1 à '+e+')'+' · '+(s2El.checked?'2ⁿ 1-25 · ':'')+(stEl.checked?'tableau n¹ à n¹⁰ · ':'')+(scEl.checked?'carrés':'');
+  }
+
+  nEl.addEventListener('input',render);eEl.addEventListener('input',render);s2El.addEventListener('change',render);stEl.addEventListener('change',render);scEl.addEventListener('change',render);
+  render();
+})();
+</script>
+</body>
+</html>

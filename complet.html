@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MathMnemo · Tables complètes</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
+#app{max-width:1400px;margin:0 auto}
+h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
+.sub{text-align:center;color:#94a3b8;margin-bottom:16px;font-size:0.85rem}
+.sh{font-size:1.15rem;color:#fbbf24;margin:22px 0 10px;padding-bottom:4px;border-bottom:1px solid #334155}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px}
+.cd{background:#1e293b;border-radius:8px;padding:10px;border:1px solid #334155}
+.cd h3{font-size:0.85rem;color:#fbbf24;text-align:center;margin-bottom:4px}
+.cd .rw{display:flex;justify-content:space-between;padding:2px 6px;font-size:0.8rem;border-bottom:1px solid #1a1f2e}
+.cd .rw:last-child{border-bottom:none}
+.cd .op{color:#94a3b8}.cd .res{color:#f1f5f9;font-weight:600}
+.btn{display:block;width:fit-content;margin:0 auto 16px;padding:10px 28px;border:none;border-radius:8px;background:#fbbf24;color:#0f172a;font-weight:700;font-size:0.95rem;cursor:pointer}
+.btn:hover{background:#fcd34d}
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>MathMnemo · Tout en un</h1>
+  <p class="sub">Tables complètes : multiplication, puissances, racines</p>
+  <button class="btn" id="printBtn"> Imprimer</button>
+
+  <div id="content"></div>
+</div>
+<script>
+(function(){
+  var s = {0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹'};
+  function S(n){return String(n).split('').map(function(c){return s[c]||c}).join('');}
+
+  document.getElementById('printBtn').addEventListener('click', function(){window.print()});
+
+  var html = '';
+
+  // === 1. MULTIPLICATION 1-25 ===
+  html += '<div class="sh"> Multiplication — Tables de 1 à 25</div><div class="gr">';
+  for(var i=1;i<=25;i++){
+    html += '<div class="cd"><h3>Table de '+i+'</h3>';
+    for(var j=1;j<=25;j++) html += '<div class="rw"><span class="op">'+i+' × '+j+'</span><span class="res">'+(i*j)+'</span></div>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // === 2. PUISSANCES n² à n¹⁰ ===
+  html += '<div class="sh"> Puissances — n² à n¹⁰ pour n=1 à 25</div><div class="gr">';
+  for(var b=1;b<=25;b++){
+    html += '<div class="cd"><h3>'+b+' (k=2 à 10)</h3>';
+    for(var k=2;k<=10;k++){
+      var v = Math.pow(b,k);
+      if(v>9e14) html += '<div class="rw"><span class="op">'+b+S(k)+'</span><span class="res" style="font-size:0.75rem">≥10¹⁵</span></div>';
+      else html += '<div class="rw"><span class="op">'+b+S(k)+'</span><span class="res">'+v.toLocaleString('fr-FR')+'</span></div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // === 3. PUISSANCES DE 2 ===
+  html += '<div class="sh"> 2ⁿ — n=1 à 25</div><div class="gr">';
+  for(var k2=1;k2<=25;k2++) html += '<div class="cd"><h3>2'+S(k2)+'</h3><div class="rw"><span class="op">2'+S(k2)+'</span><span class="res">'+(Math.pow(2,k2)).toLocaleString('fr-FR')+'</span></div></div>';
+  html += '</div>';
+
+  // === 4. CARRÉS PARFAITS 1-25 ===
+  html += '<div class="sh"> Carrés parfaits — n² pour n=1 à 25</div><div class="gr">';
+  for(var c=1;c<=25;c++){
+    html += '<div class="cd"><h3>'+c+'²</h3><div class="rw"><span class="op">'+c+' × '+c+'</span><span class="res">'+(c*c)+'</span></div></div>';
+  }
+  html += '</div>';
+
+  // === 5. RACINES CARRÉES 1-25 ===
+  html += '<div class="sh"> Racines carrées — √n pour n=1 à 25</div><div class="gr">';
+  for(var rc=1;rc<=25;rc++){
+    var rv = Math.sqrt(rc);
+    var perf = Number.isInteger(rv);
+    html += '<div class="cd"><h3>√'+rc+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(perf?rv:rv.toFixed(6))+'</span></div>'+(perf?'<div class="rw hl" style="background:#1e3a2e;border-radius:4px;margin-top:4px"><span class="op"> Parfait</span><span class="res">= '+rv+'</span></div>':'')+'</div>';
+  }
+  html += '</div>';
+
+  // === 6. RACINES CUBIQUES 1-25 ===
+  html += '<div class="sh"> Racines cubiques — ∛n pour n=1 à 25</div><div class="gr">';
+  for(var r3=1;r3<=25;r3++){
+    var v3 = Math.cbrt(r3);
+    var p3 = Number.isInteger(v3);
+    html += '<div class="cd"><h3>∛'+r3+'</h3><div class="rw"><span class="op">Valeur</span><span class="res">'+(p3?v3:v3.toFixed(6))+'</span></div>'+(p3?'<div class="rw hl" style="background:#1e3a2e;border-radius:4px;margin-top:4px"><span class="op"> Parfait</span><span class="res">= '+v3+'</span></div>':'')+'</div>';
+  }
+  html += '</div>';
+
+  // === 7. RACINES 4e à 10e DE 1 À 10 ===
+  html += '<div class="sh"> Racines 4e à 10e — pour n=1 à 10</div><div class="gr">';
+  for(var rn=1;rn<=10;rn++){
+    html += '<div class="cd"><h3>n='+rn+'</h3>';
+    for(var re=4;re<=10;re++){
+      var vr = Math.pow(rn,1/re);
+      html += '<div class="rw"><span class="op">'+S(re)+'√'+rn+'</span><span class="res">'+vr.toFixed(6)+'</span></div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // === 8. RACINES 11e à 25e DE 1 À 5 ===
+  html += '<div class="sh"> Racines 11e à 25e — pour n=1 à 5</div><div class="gr">';
+  for(var rn2=1;rn2<=5;rn2++){
+    html += '<div class="cd"><h3>n='+rn2+'</h3>';
+    for(var re2=11;re2<=25;re2++){
+      var vr2 = Math.pow(rn2,1/re2);
+      html += '<div class="rw"><span class="op">'+S(re2)+'√'+rn2+'</span><span class="res">'+vr2.toFixed(8)+'</span></div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  document.getElementById('content').innerHTML = html;
+
+  // Highlight perfect roots
+  var style = document.createElement('style');
+  style.textContent = '.hl{background:#1e3a2e;border-radius:4px}';
+  document.head.appendChild(style);
+})();
+</script>
+</body>
+</html>

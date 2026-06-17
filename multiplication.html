@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multiplication · Tables interactives</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0f172a;color:#e2e8f0;padding:16px}
+#app{max-width:1200px;margin:0 auto}
+h1{text-align:center;font-size:1.8rem;color:#fbbf24;margin-bottom:2px}
+.sub{text-align:center;color:#94a3b8;margin-bottom:16px;font-size:0.85rem}
+.liens{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.liens a{padding:8px 18px;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;background:#1e293b;color:#94a3b8;border:1px solid #334155;transition:all .2s}
+.liens a:hover{border-color:#fbbf24;color:#fbbf24}
+.liens a.on{background:#fbbf24;color:#0f172a;border-color:#fbbf24}
+.cp{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px;padding:14px;background:#1e293b;border-radius:10px;border:1px solid #334155}
+.cp label{font-size:0.78rem;color:#94a3b8;display:block;margin-bottom:3px}
+.cp input,.cp select{padding:6px 10px;border:1px solid #334155;border-radius:6px;background:#0f172a;color:#e2e8f0;font-size:0.9rem;outline:none;text-align:center}
+.cp input:focus,.cp select:focus{border-color:#fbbf24}
+.cp input[type=number]{width:70px}
+.cp button{padding:6px 16px;border:none;border-radius:6px;background:#334155;color:#e2e8f0;cursor:pointer;font-size:0.85rem}
+.cp button:hover{background:#475569}
+.cp .st{font-size:0.82rem;color:#94a3b8;margin-left:auto}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.cd{background:#1e293b;border-radius:8px;padding:10px;border:1px solid #334155;transition:border-color .2s}
+.cd:hover{border-color:#fbbf24}
+.cd h3{font-size:0.85rem;color:#fbbf24;text-align:center;margin-bottom:4px}
+.cd .rw{display:flex;justify-content:space-between;padding:2px 6px;font-size:0.8rem;border-bottom:1px solid #1a1f2e}
+.cd .rw:last-child{border-bottom:none}
+.cd .op{color:#94a3b8}.cd .res{color:#f1f5f9;font-weight:600}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="liens">
+    <a href="index.html">Accueil</a>
+    <a href="#" class="on">Multiplication</a>
+    <a href="puissances.html">Puissances</a>
+    <a href="racines.html">Racines</a>
+  </div>
+  <h1> Tables de multiplication</h1>
+  <p class="sub">Explore les tables de 1 à 25 avec des contrôles dynamiques</p>
+
+  <div class="cp">
+    <div><label>Afficher les tables</label><select id="mode"><option value="range">Plage 1 → X</option><option value="single">Table d'un nombre</option><option value="all">Toutes (1-25)</option></select></div>
+    <div><label>Nombre</label><input type="number" id="n" value="7" min="1" max="999"></div>
+    <div><label>De</label><input type="number" id="f" value="1" min="1" max="999"></div>
+    <div><label>À</label><input type="number" id="t" value="12" min="1" max="999"></div>
+    <div><label>Tables 1 →</label><input type="number" id="r" value="6" min="1" max="25"></div>
+    <button id="btn10">1-10</button>
+    <button id="btn25">1-25</button>
+    <span class="st" id="info"></span>
+  </div>
+  <div class="gr" id="res"></div>
+</div>
+<script>
+(function(){
+  var nEl=document.getElementById('n'),fEl=document.getElementById('f'),tEl=document.getElementById('t'),rEl=document.getElementById('r'),modeEl=document.getElementById('mode');
+
+  function render(){
+    var mode=modeEl.value,n=parseInt(nEl.value)||1,f=parseInt(fEl.value)||1,t=parseInt(tEl.value)||10,r=parseInt(rEl.value)||6;
+    var h='';
+    if(mode==='all'){
+      for(var i=1;i<=25;i++){h+='<div class="cd"><h3>Table de '+i+'</h3>';for(var j=1;j<=25;j++)h+='<div class="rw"><span class="op">'+i+' × '+j+'</span><span class="res">'+(i*j)+'</span></div>';h+='</div>';}
+      document.getElementById('info').textContent='25 tables × 25 = 625 résultats';
+    } else if(mode==='single'){
+      for(var j=f;j<=t;j++){h+='<div class="cd"><h3>'+n+' × '+j+'</h3>';h+='<div class="rw"><span class="op">'+n+' × '+j+'</span><span class="res">'+(n*j)+'</span></div></div>';}
+      document.getElementById('info').textContent=n+' × '+f+' à '+n+' × '+t+' = '+(t-f+1)+' résultats';
+    } else {
+      for(var i=1;i<=r;i++){h+='<div class="cd"><h3>'+i+' × n</h3>';for(var j=f;j<=t;j++)h+='<div class="rw"><span class="op">'+i+' × '+j+'</span><span class="res">'+(i*j)+'</span></div>';h+='</div>';}
+      document.getElementById('info').textContent='Tables 1 à '+r+' × '+f+' à '+t+' = '+Math.max(0,t-f+1)*r+' résultats';
+    }
+    document.getElementById('res').innerHTML=h;
+  }
+
+  nEl.addEventListener('input',render);fEl.addEventListener('input',render);tEl.addEventListener('input',render);rEl.addEventListener('input',render);modeEl.addEventListener('change',render);
+  document.getElementById('btn10').addEventListener('click',function(){rEl.value=10;render()});
+  document.getElementById('btn25').addEventListener('click',function(){rEl.value=25;render()});
+  render();
+})();
+</script>
+</body>
+</html>
